@@ -1,0 +1,200 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Sleep Tracker
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- tab bar -->
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="home_page">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="track_sleep" (click)="reload_sleep()">
+          <ion-icon name="bed"></ion-icon>
+          <ion-label>Bedtime</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="log_sleepiness" (click)="reload_sleepiness()">
+          <ion-icon name="cloudy-night"></ion-icon>
+          <ion-label>Sleepiness</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="view_data" (click)="reload_cards()">
+          <ion-icon name="stats"></ion-icon>
+          <ion-label>Data</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+      <ion-tab tab="home_page">
+        <!-- <ion-router-outlet name="home_page"></ion-router-outlet> -->
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+                <ion-img [src]="app_logo" id="app_main_logo"></ion-img>
+            </ion-col>
+            <ion-col size="8">
+              <ion-text><h1 id="app_title">Sleep Tracker</h1></ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+              <ion-card id="home_card">
+              <ion-card-header>
+              <ion-card-title style="color: white;">Welcome !</ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                  Are you looking to better understand your sleeping patterns?<br>
+                  <br>SleepTracker is here to record and provide analysis of your sleeping duration and sleepiness data.<br>
+                  <br>Record and keep a log history of your overnight sleep and sleepiness throughout the day.
+              </ion-card-content>
+              </ion-card>
+          </ion-row>
+        </ion-grid>
+
+      </ion-tab>
+
+      <ion-tab tab="track_sleep">
+        <!-- <ion-router-outlet name="track_sleep"></ion-router-outlet> -->
+        <ion-grid>
+          <ion-row>
+              <!-- display clock & date -->
+              <h1 id="clock_display">{{ clock | date:'HH:mm:ss' }}</h1>
+              <h2 id="date_display">{{ today | date:'fullDate' }}</h2>
+          </ion-row>
+
+          <ion-row>
+              <ion-button shape="round" fill="outline" size="large" (click)="timerMessage()" color="light" id="log_sleep_btn">{{ btn1_txt }}</ion-button>
+          </ion-row>
+
+          <ion-card id="sleep_card">
+              <ion-card-content>
+                  <h2 style="font-size: 20px; margin-bottom: 5%;">Forgot to press the button?<br>Log it yourself!</h2>
+                  <ion-item style="opacity: 0.7;">
+                      <ion-label style="color: white;">Went to bed: </ion-label>
+                      <ion-datetime displayFormat="HH:mm" slot="end" [(ngModel)]="st_time"></ion-datetime>
+                  </ion-item>
+                  <ion-item style="opacity: 0.7;">
+                      <ion-label style="color: white;">Woke up: </ion-label>
+                      <ion-datetime displayFormat="HH:mm" slot="end" [(ngModel)]="end_time"></ion-datetime>
+                  </ion-item>
+                  <ion-button shape="round" fill="outline" (click)="selfLog()" color="light" id="self_log_btn">{{ btn2_txt }}</ion-button>
+              </ion-card-content>
+          </ion-card>
+
+        </ion-grid>
+      </ion-tab>
+
+      <ion-tab tab="log_sleepiness">
+        <!-- <ion-router-outlet name="log_sleepiness"></ion-router-outlet> -->
+        <ion-grid>
+          <ion-row>
+            <h1 id="clock_display">{{ clock | date:'HH:mm:ss' }}</h1>
+            <h2 id="date_display">{{ today | date:'fullDate' }}</h2>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="7">
+                <div class="slider">
+                  <div class="slider-inner">
+                      <button class="slider-item" (click)="update_sleepiness(0)"><h3>Sleepiness Level</h3></button>
+                      <button class="slider-item" (click)="update_sleepiness(1)"><h2 class="level-item">1</h2></button>
+                      <button class="slider-item" (click)="update_sleepiness(2)"><h2 class="level-item">2</h2></button>
+                      <button class="slider-item" (click)="update_sleepiness(3)"><h2 class="level-item">3</h2></button>
+                      <button class="slider-item" (click)="update_sleepiness(4)"><h2 class="level-item">4</h2></button>
+                      <button class="slider-item" (click)="update_sleepiness(5)"><h2 class="level-item">5</h2></button>
+                      <button class="slider-item" (click)="update_sleepiness(6)"><h2 class="level-item">6</h2></button>
+                      <button class="slider-item" (click)="update_sleepiness(7)"><h2 class="level-item">7</h2></button>
+                  </div>
+                </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+                  <ion-button shape="round" fill="outline" (click)="display_level()" color="light" id="sleepiness_log_btn">{{ btn3_txt }}</ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-tab>
+
+      <ion-tab tab="view_data">
+        <!-- <ion-router-outlet name="view_data"></ion-router-outlet> -->
+            <div>
+                <ion-segment [(ngModel)]="sleepness">
+                    <ion-segment-button value="sleep_seg" (ionSelect)="sleep_hours_data()">Sleep Hour</ion-segment-button>
+                    <ion-segment-button value="sleepiness_seg" (ionSelect)="sleepiness_data()">Sleepiness</ion-segment-button>
+                </ion-segment>
+            </div>
+            <div *ngIf="sleepness === 'sleep_seg'" class="sleep_div">
+                <ion-slides [options]="slideOpts" pager="true">
+                    <ion-slide *ngFor="let sleep_log of sleep_logs; let i = index">
+                        <ion-card class="sleep_data_card">
+                            <ion-card-header>
+                                <ion-card-title style="color: white; margin: auto;">Bedtime Log {{ i+1 }}</ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <h2 class="sleep_card_cap">Went to bed: </h2><h2 class="sleep_card_val">{{ sleep_log.sleepStart | date:'short' }}</h2>
+                                <h2 class="sleep_card_cap">Woke up: </h2><h2 class="sleep_card_val">{{ sleep_log.sleepEnd | date:'short' }}</h2>
+                                <h2 class="sleep_card_cap">Hours in bed: </h2><h2 class="sleep_card_val">{{ sleep_log.summaryString() }}</h2>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-slide>
+                </ion-slides>
+
+                <div class="sa_div">
+                    <ion-card class="sleep_analysis_card">
+                        <ion-card-header>
+                            <ion-card-title style="color: white;">Sleep Analysis</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <h2 class="sleep_card_cap">Total number of logs: </h2><h2 class="sleep_card_val">{{ num_sleep_logs }}</h2>
+                            <h2 class="sleep_card_cap">Ave. time in bed: </h2><h2 class="sleep_card_val">{{ avg_bedtime }}</h2>
+                            <h2 class="sleep_card_cap">Longest bedtime: </h2><h2 class="sleep_card_val">{{ longest_bedtime }}</h2>
+                            <h2 class="sleep_card_cap"></h2><h2 class="sleep_card_val">{{ longest_bedtime_date }}</h2>
+                            <h2 class="sleep_card_cap">Shortest bedtime: </h2><h2 class="sleep_card_val">{{ shortest_bedtime }}</h2>
+                            <h2 class="sleep_card_cap"></h2><h2 class="sleep_card_val">{{ shortest_bedtime_date }}</h2>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+
+            </div>
+            <div *ngIf="sleepness === 'sleepiness_seg'" class="sleepiness_div">
+                <ion-slides [options]="slideOpts" pager="true">
+                    <ion-slide *ngFor="let sleepiness_log of sleepiness_summary; let i = index">
+                        <ion-card class="sleepiness_data_card">
+                            <ion-card-header>
+                                <ion-card-title style="color: white; margin: auto;">Sleepiness Log {{ i+1 }}</ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <h2 class="sleepiness_card_cap">Logged at: </h2><h2 class="sleep_card_val">{{ sleepiness_log.sleepiness_time | date:'short' }}</h2>
+                                <h2 class="sleepiness_card_cap">You felt: </h2><h2 style="color: #ffe98b;text-align: right;float: right;width: 70%;">{{ sleepiness_log.sleepiness_state }}</h2>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-slide>
+                </ion-slides>
+                <div class="sa_div">
+                  <ion-card class = "sleepiness_analysis_card">
+                    <ion-card-header>
+                      <ion-card-title style="color: white;">Sleepiness Analysis</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <h2 class = "sleepiness_analysis_cap">Total number of logs: </h2><h2 class ="sleepiness_card_val">{{ num_sleepiness_logs }}</h2>
+                        <h2 class = "sleepiness_analysis_cap">Feeling active: </h2><h2 class="sleepiness_card_val">{{ num_level1_logs }}</h2>
+                        <h2 class = "sleepiness_analysis_cap">Able to concentrate: </h2><h2 class ="sleepiness_card_val">{{ num_level2_logs }}</h2>
+                        <h2 class = "sleepiness_analysis_cap">Responsive, not fully alert: </h2><h2 class = "sleepiness_card_val">{{ num_level3_logs }}</h2>
+                        <h2 class = "sleepiness_analysis_cap">Somewhat foggy: </h2><h2 class = "sleepiness_card_val">{{ num_level4_logs }} </h2>
+                        <h2 class = "sleepiness_analysis_cap">Loosing interest to be awake: </h2><h2 class = "sleepiness_card_val">{{ num_level5_logs }}</h2>
+                        <h2 class = "sleepiness_analysis_cap">Sleepy: </h2><h2 class = "sleepiness_card_val">{{ num_level6_logs }}</h2>
+                        <h2 class = "sleepiness_analysis_cap">Sleep onset soon: </h2><h2 class = "sleepiness_card_val">{{ num_level7_logs }}</h2>
+                    </ion-card-content>
+                  </ion-card>
+                </div>
+            </div>
+      </ion-tab>
+
+    </ion-tabs>
+</ion-content>

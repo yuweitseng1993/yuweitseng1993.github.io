@@ -1,0 +1,186 @@
+ion-grid{
+    ion-row{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+ion-select{
+    min-width: 100%;
+}
+h1, h2, h3{
+    color: white;
+}
+ion-card{
+    color: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    opacity: 0.9;
+}
+ion-segment-button{
+    width: 150px;
+}
+ion-slides{
+    width: 90%;
+    margin-bottom: 5%;
+    --bullet-background: #ffffff;
+    --bullet-background-active: #ffffff;
+}
+#home_card {
+    background-image: url('../../assets/background/home_card_bg.jpg');
+    width: 90%;
+    height: 100%;
+}
+#sleep_card {
+    background-image: url('../../assets/background/sleep_card_bg.jpg');
+    width: 90%;
+    height: 100%;
+}
+#sleepiness_card {
+    background-image: url('../../assets/background/sleepiness_card_bg.jpg');
+    width: 90%;
+    height: 100%;
+}
+.sleep_data_card {
+    background-image: url('../../assets/background/data_card_bg.jpg');
+    background-position: bottom;
+    width: 90%;
+    height: 180px;
+    margin-bottom: 3%;
+}
+.sleepiness_data_card {
+    background-image: url('../../assets/background/data_card_bg.jpg');
+    background-position: bottom;
+    width: 90%;
+    height: 200px;
+    padding-bottom: 2%;
+}
+.sa_div {
+    width: 90%;
+    margin: auto;
+}
+.sleep_analysis_card, .sleepiness_analysis_card {
+    background-image: url('../../assets/background/data_card_bg.jpg');
+    background-position: bottom;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 5%;
+}
+.sleep_card_cap {
+    text-align: left;
+    float: left;
+}
+.sleep_card_val, .sleepiness_card_val {
+    color: #ffe98b;
+    text-align: right;
+    float: right;
+}
+.sleep_card_cap, .sleep_card_val {
+    display: inline;
+}
+.sleepiness_card_cap {
+    text-align: left;
+    float: left;
+    width: 30%;
+}
+.sleepiness_analysis_cap{
+  text-align: left;
+  float: left;
+  width: 80%;
+}
+.sleepiness_card_cap, .sleepiness_card_val{
+  display: inline;
+}
+#app_main_logo {
+    padding-left: 20px;
+    margin: auto;
+    width: 140px;
+}
+#app_title {
+    font-size: 50px;
+    text-align: center;
+    margin: auto;
+}
+#clock_display {
+    font-size: 70px;
+    margin: auto;
+}
+#date_display {
+    margin: auto;
+}
+#log_sleep_btn {
+    font-size: 25px;
+    margin: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+#self_log_btn {
+    padding-left: 65%;
+    margin-top: 3%;
+}
+#sleepiness_log_btn {
+    margin: auto;
+    margin-top: 2%;
+}
+.sleep_div {
+    height: 90%;
+}
+.sleepiness_div {
+    height: 90%;
+}
+
+// CSS for sleepiness selector
+.slider{
+    width: 80%;
+    padding: 3%;
+}
+.slider-inner{
+	margin: auto;
+}
+#level-text {
+    margin-left: 41%;
+    padding-top: 41%;
+    text-align: center;
+    width: 120px;
+
+}
+.slider-item{
+    width: 150px;
+    height: 80px;
+    background-color: rgb(48,78,184,0.3);
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+	cursor: pointer;
+
+    transform-origin: center 180%;
+    -webkit-transform-origin: center 180%;
+    -ms-transform-origin: center 180%;
+    -moz-transform-origin: center 180%;
+
+    transition: transform 1s;
+    -webkit-transition: transform 1s;
+    -ms-transition: transform 1s;
+    -moz-transition: transform 1s;
+
+    color: #fff;
+    box-sizing: border-box;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    .level-item{
+        margin: auto;
+    }
+}
+.slider-item.active{
+    background-color: rgb(48,78,184);
+	cursor: default;
+}
+.slider-item:not(.active):hover{
+	background-color: rgb(48,78,184,0.8);
+}

@@ -1,0 +1,27 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// modify picker colors for dark theme
+.picker-above-highlight, .picker-below-highlight{
+    background: linear-gradient(180deg,var(--ion-background-color,#fff) 20%,rgba(var(--ion-background-color-rgb,255,255,255),0.1)) !important;
+}
+.picker-opt{
+    color: var(--ion-item-color,var(--ion-text-color,#fff)) !important;
+}
+
+.sleepiness_cap, .sleepiness_val {
+    text-align: left !important;
+}
+
+ion-datetime{
+    color: white !important;
+}
